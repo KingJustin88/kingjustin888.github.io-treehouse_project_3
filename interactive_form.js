@@ -1,12 +1,8 @@
-
-
 // set name and email to variables
 const usernameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
-
 // Set focus on Name field
 $('#name').focus();
-
 
 
 // Job role section
@@ -67,15 +63,15 @@ shirtDesign.addEventListener('change', () => {
 	var jsLibraries = $("input[name='js-libs']");
 	var express = $("input[name='express']");
 	var nodeJS = $("input[name='node']");
-  	// Add total cost of activities
+
+  	// when activity is checked, total cost of activity is added and updated while disabling activities
+	// interfering with each other's schedule
 	var totalCost = 0;
 	$('.activities').append('<div id="total"></div>');
 	var updateCost = function (cost) {
 		totalCost += cost;
 		document.getElementById("total").innerHTML = "Total: $" + totalCost;
 	};
-
-	// while activity is checked, total cost is updated
 	$("input[name='all']").change(function () {
 		if ($(this).prop("checked")) {
 			updateCost(200);
@@ -83,9 +79,6 @@ shirtDesign.addEventListener('change', () => {
 			updateCost(-200);
 		}
 	});
-
-	// while activity is checked, total cost is updated and disabling activities
-	// intefering with each other's schedule
 	jsFrameworks.change(function () {
 		if ($(this).prop("checked")) {
 			express.prop("disabled", true);
@@ -179,7 +172,6 @@ $('#payment').change(function(){
 
 //Form Validation
 
-// Add Error/Success Indicators on Keyup for fun
 $('#name, #mail, #cc-num, #zip, #cvv, #other-field').keyup(function (){
 	if ( $(this).val() === "")  {
 		$(this).removeClass('success');
@@ -189,10 +181,9 @@ $('#name, #mail, #cc-num, #zip, #cvv, #other-field').keyup(function (){
 		$(this).addClass('success');
 	}
 });
+
 var emailAddress = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-// var creditCard = /\b\d{4}(| |-)\d{4}\1\d{4}\1\d{4}\b/g;
 var creditCard = /^(\d{4}-){3}\d{4}$|^(\d{4} ){3}\d{4}$|^\d{16}$/;
-// var zipCode = /^\d{5}(?:[-\s]\d{4})?$/;
 var zipCode = /^(\d{5}(?:\-\d{4})?)$/;
 var errorMessage ="";
 $('form').prepend('<p id="error-message"></p>');
@@ -245,14 +236,14 @@ $('form').submit(function (e){
 		$("html, body").animate({scrollTop: 0}, "slow");
 		errorMessage = "<h2>Error!</h2>Please enter a 3 digit CVV";
 		$('#cvv').focus();
-	} else {
-		
+	} else {	
 		$("html, body").animate({scrollTop: 0}, "slow");
 		errorMessage = "";
 		alert("Success!");
 		alert("Thanks for registering! We'll see you at the Con!");
 		document.getElementById('cvv').style.borderColor = "";
 	}
+
 	document.getElementById('error-message').innerHTML = errorMessage;
 	$('#error-message').show();
 });
